@@ -1,4 +1,4 @@
-@define-color noti-border-color rgba(255, 255, 255, 0.15);
+@define-color noti-border-color rgba(255,255,255, 0.15);
 @define-color noti-bg #2E3440;
 @define-color noti-bg-alt #383E4A;
 @define-color noti-fg #E5E9F0;
@@ -53,7 +53,7 @@
 
 .notification-content {
     background: transparent;
-    padding: 6px;
+    padding: 8px;
     border-radius: 12px;
 }
 
@@ -155,7 +155,7 @@
 }
 
 /* The "Notifications" and "Do Not Disturb" text widget */
-.top-action-title {
+.menu-button-bar {
     color: white;
     text-shadow: none;
 }
@@ -180,12 +180,12 @@
 /*** Widgets ***/
 
 /* Title widget */
-.widget-title {
+.menu-button-bar {
     margin: 8px;
     font-size: 1.5rem;
 }
 
-.widget-title > button {
+.menu-button-bar > button {
     font-size: initial;
     color: white;
     text-shadow: none;
@@ -201,7 +201,7 @@
 
 /* DND widget */
 .widget-dnd {
-    margin: 8px;
+    margin: 16px;
     font-size: 1.1rem;
 }
 
@@ -220,6 +220,7 @@
 .widget-dnd > switch slider {
     background: @noti-bg-hover;
     border-radius: 12px;
+    padding-right: 8px;
 }
 
 /* Label widget */
@@ -252,10 +253,10 @@
 
 /* Volume and Brightness Widget*/
 
-.widget-volume {
+box.widget-volume {
     background-color: @noti-bg;
-    padding: 4px 8px 8px 8px;
-    margin: 0px 8px 8px 8px;
+    padding: 16px 16px 16px 16px;
+    margin: 0px 16px 8px 8px;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
 }
@@ -309,6 +310,7 @@
 
 .widget-buttons-grid > flowbox > flowboxchild > button {
     background: @noti-bg;
+    padding: 8px;
     border-radius: 12px;
 }
 
@@ -330,4 +332,13 @@
 
 .powermode-buttons > button:hover {
     background: @noti-bg-hover;
+}
+
+.vertical.control-center {
+    padding-left: 16px;
+}
+
+.control-center .widget-title {
+    padding-left: 8px;
+    padding-right: 8px;
 }
