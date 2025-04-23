@@ -80,6 +80,8 @@
     rust-analyzer
     gcalcli
     gopls
+    swaynotificationcenter
+    libcanberra
   ];
 
   services.hyprpaper = {
@@ -90,6 +92,9 @@
       "DP-8,${config.home.homeDirectory}/Wallpapers/2fx.png"
     ];
   };
+
+  services.mako = lib.mkForce { enable = false; };
+
   programs.firefox = {
     enable = true;
     policies = {
@@ -115,10 +120,56 @@
     };
   };
 
+  programs.waybar = {
+    enable = true;
+    settings = {
+      mainBar = {
+        modules-right = [
+          "battery"
+          "custom/notification"
+          "cpu"
+          "memory"
+          "network"
+          "pulseaudio"
+          "clock"
+        ];
+        "custom/notification" = {
+          tooltip = true;
+          format = "{icon}";
+          format-icons = {
+            notification = "<span foreground='red'><sup></sup></span>";
+            none = "";
+            dnd-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-none = "";
+            inhibited-notification =
+              "<span foreground='red'><sup></sup></span>";
+            inhibited-none = "";
+            dnd-inhibited-notification =
+              "<span foreground='red'><sup></sup></span>";
+            dnd-inhibited-none = "";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
+        };
+      };
+    };
+    style = ''
+      #custom-notification {
+           font-family: "NotoSansMono Nerd Font";
+           padding: 5px;
+         }
+    '';
+  };
+
   wayland.windowManager.hyprland = {
     settings = {
       exec-once = [
         "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
+        "swaync"
         "pypr"
       ];
 
@@ -148,6 +199,7 @@
       ];
 
       bind = [
+        "$mainMod, A, exec, swaync-client -t -sw"
         "$mainMod, V, exec, cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
         "$mainMod, G, togglegroup"
         "$mainMod, Return, exec, nvidia-offload kitty"
