@@ -82,6 +82,7 @@
     gopls
     swaynotificationcenter
     libcanberra
+    spotify
   ];
 
   services.hyprpaper = {
@@ -94,7 +95,12 @@
   };
 
   services.mako = lib.mkForce { enable = false; };
-
+  services.swaync = {
+    enable = true;
+    package = pkgs.swaynotificationcenter;
+    settings = builtins.fromJSON (builtins.readFile ./swaync/config.json);
+    style = builtins.readFile ./swaync/styles.css;
+  };
   programs.firefox = {
     enable = true;
     policies = {
@@ -124,37 +130,8 @@
     enable = true;
     settings = {
       mainBar = {
-        modules-right = [
-          "battery"
-          "custom/notification"
-          "cpu"
-          "memory"
-          "network"
-          "pulseaudio"
-          "clock"
-        ];
-        "custom/notification" = {
-          tooltip = true;
-          format = "{icon}";
-          format-icons = {
-            notification = "<span foreground='red'><sup></sup></span>";
-            none = "";
-            dnd-notification = "<span foreground='red'><sup></sup></span>";
-            dnd-none = "";
-            inhibited-notification =
-              "<span foreground='red'><sup></sup></span>";
-            inhibited-none = "";
-            dnd-inhibited-notification =
-              "<span foreground='red'><sup></sup></span>";
-            dnd-inhibited-none = "";
-          };
-          return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click = "swaync-client -t -sw";
-          on-click-right = "swaync-client -d -sw";
-          escape = true;
-        };
+        modules-right =
+          [ "battery" "cpu" "memory" "network" "pulseaudio" "clock" ];
       };
     };
     style = ''
