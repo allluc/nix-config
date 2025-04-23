@@ -18,6 +18,7 @@
       cal = "gcalcli agenda";
       edithome = "cd ~/nix-config && zed .";
       format = "nixfmt ~/nix-config";
+      auth = "ykman oath accounts code --single 'DevSecOps Collaboration Workspace:alec.lucas' | wl-copy";
     };
   };
 }
