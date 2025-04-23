@@ -83,6 +83,7 @@
     swaynotificationcenter
     libcanberra
     spotify
+    obs-studio
   ];
 
   services.hyprpaper = {
