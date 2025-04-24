@@ -102,6 +102,7 @@
     settings = builtins.fromJSON (builtins.readFile ./swaync/config.json);
     style = builtins.readFile ./swaync/styles.css;
   };
+
   programs.firefox = {
     enable = true;
     policies = {
@@ -124,6 +125,21 @@
             "{446900e4-71c2-419f-a6a7-df9c091e268b}")
           (extension "vimium-ff" "{d7742d87-e61d-4b78-b8a1-b469842139fa}")
         ];
+    };
+  };
+
+  programs.zed-editor = {
+    enable = true;
+    userSettings = {
+      lsp = {
+        go = {
+          command = "gopls";
+          initialization_options = {
+            usePlaceholders = true;
+            completeUnimported = true;
+          };
+        };
+      };
     };
   };
 
