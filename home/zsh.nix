@@ -13,8 +13,7 @@
       shell = "nix develop -c $SHELL";
       neofetch = "neofetch --ascii ~/.config/neofetch/ascii.txt";
       gct = "git commit --template ~/.gitmessage";
-      gcat =
-        "git commit --all --template ~/.gitmessage --amend --no-edit --signoff";
+      gcat = "git commit --all --template ~/.gitmessage --signoff";
       gsign = "git commit --amend --no-edit --signoff";
       cal = "gcalcli agenda";
       edithome = "cd ~/nix-config && zed .";
