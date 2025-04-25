@@ -143,6 +143,23 @@
     };
   };
 
+  programs.k9s = {
+    enable = true;
+    settings = { xdg = { enable = true; }; };
+    views = {
+      views = {
+        "ks" = {
+          columns =
+            [ "NAMESPACE" "NAME" "SUS:.spec.suspend" "READY" "STATUS" "AGE" ];
+        };
+        "hr" = {
+          columns =
+            [ "NAMESPACE" "NAME" "SUS:.spec.suspend" "READY" "STATUS" "AGE" ];
+        };
+      };
+    };
+  };
+
   programs.waybar = {
     enable = true;
     settings = {
