@@ -84,6 +84,7 @@
     libcanberra
     spotify
     obs-studio
+    vscode
   ];
 
   services.hyprpaper = {
