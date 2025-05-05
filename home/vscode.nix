@@ -64,20 +64,6 @@ in {
 
       };
 
-      extensions = with vscode-marketplace; [
-        jnoortheen.nix-ide
-        ms-vsliveshare.vsliveshare
-        rust-lang.rust-analyzer
-        esbenp.prettier-vscode
-        golang.go
-        eamodio.gitlens
-        ms-python.python
-        jnoortheen.nix-ide
-        dbaeumer.vscode-eslint
-        sonarsource.sonarlint-vscode
-        cweijan.vscode-mysql-client2
-        bbenoist.nix
-      ];
     };
   };
 }
