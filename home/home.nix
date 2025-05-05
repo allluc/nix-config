@@ -161,22 +161,6 @@
     };
   };
 
-  programs.waybar = {
-    enable = true;
-    settings = {
-      mainBar = {
-        modules-right =
-          [ "battery" "cpu" "memory" "network" "pulseaudio" "clock" ];
-      };
-    };
-    style = ''
-      #custom-notification {
-           font-family: "NotoSansMono Nerd Font";
-           padding: 5px;
-         }
-    '';
-  };
-
   wayland.windowManager.hyprland = {
     settings = {
       exec-once = [
