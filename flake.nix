@@ -30,12 +30,23 @@
   };
   nixConfig = {
     extra-substituters = [ "https://hyprland.cachix.org" ];
-    extra-trusted-public-keys =
-      [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
   };
 
-  outputs = { nixpkgs, stylix, home-manager, hyprland, disko, nixos-hardware
-    , secondfront, twofctl, ... }@inputs:
+  outputs =
+    {
+      nixpkgs,
+      stylix,
+      home-manager,
+      hyprland,
+      disko,
+      nixos-hardware,
+      secondfront,
+      twofctl,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -49,7 +60,8 @@
         email = "alec.lucas@secondfront.com";
         signingkey = "0xE2DCF7BF466ECF68";
       };
-    in {
+    in
+    {
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
       nixosConfigurations = {
         nixtop = nixpkgs.lib.nixosSystem {

@@ -1,9 +1,18 @@
-{ config, pkgs, inputs, lib, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
+{
   imports = [ ./zsh.nix ];
 
   nixpkgs = {
     overlays = [ inputs.nur.overlay ];
-    config = { allowUnfree = true; };
+    config = {
+      allowUnfree = true;
+    };
   };
 
   stylix = {
@@ -13,8 +22,7 @@
       name = "Bibata-Modern-Classic";
       size = 24;
     };
-    base16Scheme =
-      lib.mkForce "${pkgs.base16-schemes}/share/themes/gruvbox-dark-soft.yaml";
+    base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/gruvbox-dark-soft.yaml";
 
     opacity = lib.mkForce {
       applications = 1.0;
@@ -108,22 +116,24 @@
     enable = true;
     policies = {
       SecurityDevices = {
-        Add = { "Yubikey/Smartcard" = "${pkgs.opensc}/lib/opensc-pkcs11.so"; };
+        Add = {
+          "Yubikey/Smartcard" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+        };
       };
-      ExtensionSettings = with builtins;
+      ExtensionSettings =
+        with builtins;
         let
           extension = shortId: uuid: {
             name = uuid;
             value = {
-              install_url =
-                "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+              install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
               installation_mode = "force_installed";
             };
           };
-        in listToAttrs [
+        in
+        listToAttrs [
           (extension "ublock-origin" "uBlock0@raymondhill.net")
-          (extension "bitwarden-password-manager"
-            "{446900e4-71c2-419f-a6a7-df9c091e268b}")
+          (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
           (extension "vimium-ff" "{d7742d87-e61d-4b78-b8a1-b469842139fa}")
         ];
     };
@@ -134,34 +144,36 @@
         order = [ "google" ];
         engines = {
           "Nix Packages" = {
-            urls = [{
-              template = "https://search.nixos.org/packages";
-              params = [
-                {
-                  name = "type";
-                  value = "packages";
-                }
-                {
-                  name = "query";
-                  value = "{searchTerms}";
-                }
-              ];
-            }];
-            icon =
-              "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@np" ];
           };
           "NixOS Wiki" = {
-            urls = [{
-              template = "https://nixos.wiki/index.php?search={searchTerms}";
-            }];
+            urls = [
+              {
+                template = "https://nixos.wiki/index.php?search={searchTerms}";
+              }
+            ];
             icon = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000; # every day
             definedAliases = [ "@nw" ];
           };
           "bing".metaData.hidden = true;
-          "google".metaData.alias =
-            "@g"; # builtin engines only support specifying one additional alias
+          "google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias
         };
       };
     };
@@ -184,16 +196,33 @@
 
   programs.k9s = {
     enable = true;
-    settings = { xdg = { enable = true; }; };
+    settings = {
+      xdg = {
+        enable = true;
+
+      };
+    };
     views = {
       views = {
         "ks" = {
-          columns =
-            [ "NAMESPACE" "NAME" "SUS:.spec.suspend" "READY" "STATUS" "AGE" ];
+          columns = [
+            "NAMESPACE"
+            "NAME"
+            "SUS:.spec.suspend"
+            "READY"
+            "STATUS"
+            "AGE"
+          ];
         };
         "hr" = {
-          columns =
-            [ "NAMESPACE" "NAME" "SUS:.spec.suspend" "READY" "STATUS" "AGE" ];
+          columns = [
+            "NAMESPACE"
+            "NAME"
+            "SUS:.spec.suspend"
+            "READY"
+            "STATUS"
+            "AGE"
+          ];
         };
       };
     };

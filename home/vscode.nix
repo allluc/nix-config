@@ -1,8 +1,13 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
-  vscode-marketplace =
-    inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
-in {
+  vscode-marketplace = inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
+in
+{
   home.packages = [ pkgs.nil ];
   programs.vscode = {
     enable = true;
@@ -13,8 +18,7 @@ in {
       userSettings = {
         "workbench.colorTheme" = lib.mkForce "Default Dark+";
         "workbench.iconTheme" = "vs-seti";
-        "editor.fontFamily" =
-          lib.mkForce "Menlo, Monaco, 'Courier New', monospace";
+        "editor.fontFamily" = lib.mkForce "Menlo, Monaco, 'Courier New', monospace";
 
         "files.autoSave" = "onFocusChange";
 
@@ -31,14 +35,18 @@ in {
         "prettier.tabWidth" = 2;
         "prettier.printWidth" = 100;
 
-        "files.associations" = { "*.nix" = "nix"; };
+        "files.associations" = {
+          "*.nix" = "nix";
+        };
 
         # Format specific file types with Prettier
         "[javascript]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
 
-        "[go]" = { "editor.defaultFormatter" = "golang.go"; };
+        "[go]" = {
+          "editor.defaultFormatter" = "golang.go";
+        };
 
         "[typescript]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
@@ -49,17 +57,27 @@ in {
         "[typescriptreact]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
-        "[json]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
-        "[html]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
-        "[css]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+        "[json]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+        "[html]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+        "[css]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
         "[markdown]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nil"; # or "nixd"
         "nix.serverSettings" = {
-          "nil" = { "formatting.command" = [ "nixfmt" ]; };
-          "nixd" = { "formatting.command" = [ "nixfmt" ]; };
+          "nil" = {
+            "formatting.command" = [ "nixfmt" ];
+          };
+          "nixd" = {
+            "formatting.command" = [ "nixfmt" ];
+          };
         };
 
       };

@@ -1,18 +1,35 @@
-{ pkgs, modulesPath, system, lib, user, ... }:
+{
+  pkgs,
+  modulesPath,
+  system,
+  lib,
+  user,
+  ...
+}:
 let
   drivePassword = builtins.getEnv "DRIVE_PASSWORD";
   hostname = builtins.getEnv "HOSTNAME";
   token = builtins.getEnv "GITLAB_TOKEN";
   run-install = pkgs.writeShellApplication {
     name = "run-install";
-    runtimeInputs = with pkgs; [ git disko nh ];
-    text = (builtins.replaceStrings [
-      "__USER__"
-      "__HOSTNAME__"
-      "__DRIVE_PASSWORD__"
-    ] [ user.name hostname drivePassword ] (builtins.readFile ./install.sh));
+    runtimeInputs = with pkgs; [
+      git
+      disko
+      nh
+    ];
+    text = (
+      builtins.replaceStrings
+        [
+          "__USER__"
+          "__HOSTNAME__"
+          "__DRIVE_PASSWORD__"
+        ]
+        [ user.name hostname drivePassword ]
+        (builtins.readFile ./install.sh)
+    );
   };
-in {
+in
+{
 
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
@@ -30,14 +47,24 @@ in {
   };
   isoImage = {
     isoName = lib.mkForce "nixinstaller.iso";
-    contents = [{
-      source = ../../.;
-      target = "cfg";
-    }];
+    contents = [
+      {
+        source = ../../.;
+        target = "cfg";
+      }
+    ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nixpkgs.hostPlatform = system;
-  environment.systemPackages = with pkgs; [ run-install disko vim git ];
+  environment.systemPackages = with pkgs; [
+    run-install
+    disko
+    vim
+    git
+  ];
 }

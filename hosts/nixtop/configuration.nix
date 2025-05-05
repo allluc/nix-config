@@ -1,5 +1,9 @@
-{ pkgs, ... }: {
-  imports = [ ./hardware-configuration.nix ./disko-config.nix ];
+{ pkgs, ... }:
+{
+  imports = [
+    ./hardware-configuration.nix
+    ./disko-config.nix
+  ];
 
   modules = {
     hostName = "nixtop";
@@ -11,7 +15,10 @@
   };
   environment.systemPackages = [ pkgs.firefox ];
 
-  fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono pkgs.font-awesome ];
+  fonts.packages = [
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.font-awesome
+  ];
 
   system.stateVersion = "24.05";
 }
