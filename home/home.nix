@@ -85,6 +85,7 @@
     libnotify
     nodejs_23
     claude-code
+    gcc
     rust-analyzer
     gcalcli
     gopls
@@ -195,7 +196,6 @@
   };
 
   programs.k9s = {
-    enable = true;
     settings = {
       xdg = {
         enable = true;
