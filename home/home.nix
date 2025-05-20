@@ -1,5 +1,5 @@
 { config, pkgs, inputs, lib, ... }: {
-  imports = [ ./zsh.nix ];
+  imports = [ ./zsh.nix ./vscode.nix ];
 
   nixpkgs = {
     overlays = [ inputs.nur.overlay ];
@@ -85,9 +85,10 @@
     libcanberra
     spotify
     obs-studio
-    vscode
     hyprsunset
     postgresql
+    mysql80
+    pgloader
   ];
 
   services.hyprpaper = {
