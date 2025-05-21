@@ -35,14 +35,14 @@
         refreshRate = 60;
       }
       {
-        name = "DP-7";
+        name = "DP-5";
         position = "auto-right";
         width = 3840;
         height = 2160;
         refreshRate = 60;
       }
       {
-        name = "DP-8";
+        name = "DP-6";
         position = "auto-left";
         width = 3840;
         height = 2160;

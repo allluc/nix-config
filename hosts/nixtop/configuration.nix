@@ -12,7 +12,7 @@
   environment.systemPackages = [ pkgs.firefox ];
 
   fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono pkgs.font-awesome ];
-
+  services.postgresql.enable = true;
   networking.extraHosts = ''
     172.19.0.2 login.gw.local
   '';
