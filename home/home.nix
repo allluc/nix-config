@@ -75,7 +75,6 @@
     rustfmt
     typescript
     libnotify
-    nodejs_23
     claude-code
     gcc
     rust-analyzer
