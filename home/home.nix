@@ -88,6 +88,8 @@
     postgresql
     mysql80
     pgloader
+    pkg-config
+    rustc
   ];
 
   services.hyprpaper = {
