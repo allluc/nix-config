@@ -80,7 +80,7 @@
     rust-analyzer
     gcalcli
     gopls
-    swaynotificationcenter
+    # swaynotificationcenter
     libcanberra
     spotify
     obs-studio
@@ -88,8 +88,6 @@
     postgresql
     mysql80
     pgloader
-    pkg-config
-    rustc
   ];
 
   services.hyprpaper = {
@@ -101,13 +99,13 @@
     ];
   };
 
-  services.mako = lib.mkForce { enable = false; };
-  services.swaync = {
-    enable = true;
-    package = pkgs.swaynotificationcenter;
-    settings = builtins.fromJSON (builtins.readFile ./swaync/config.json);
-    style = builtins.readFile ./swaync/styles.css;
-  };
+  # services.mako = lib.mkForce { enable = false; };
+  # services.swaync = {
+  #   enable = true;
+  #   package = pkgs.swaynotificationcenter;
+  #   settings = builtins.fromJSON (builtins.readFile ./swaync/config.json);
+  #   style = builtins.readFile ./swaync/styles.css;
+  # };
 
   programs.hyprlock.settings = {
     background = [{ color = "rgba(0, 0, 0, 1.0)"; }];
