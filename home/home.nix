@@ -88,6 +88,7 @@
     postgresql
     mysql80
     pgloader
+    nodejs_24
   ];
 
   services.hyprpaper = {
@@ -241,6 +242,11 @@
         "size 800 400,class:^(dropdown)$"
         "center,class:^(dropdown)$"
         "animation slide,class:^(dropdown)$"
+        "float, title:^(MainPicker)$"
+        "float, title:^(Sign in to Security Device)$"
+        "workspace 10,title:^(app.gather.town is sharing)(.*)$"
+        "float,title:^()$,class:^(dev.zed.Zed)$"
+        "float,class:^(firefox)$,initialClass:"
       ];
 
       bind = [
