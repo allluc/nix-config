@@ -246,7 +246,6 @@
         "float, title:^(Sign in to Security Device)$"
         "workspace 10,title:^(app.gather.town is sharing)(.*)$"
         "float,title:^()$,class:^(dev.zed.Zed)$"
-        "float,class:^(firefox)$,initialClass:"
       ];
 
       bind = [
