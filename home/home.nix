@@ -29,9 +29,9 @@
       {
         name = "eDP-1";
         position = "auto";
-        enabled = false;
         width = 1920;
         height = 1200;
+        enabled = false;
         refreshRate = 60;
       }
       {
@@ -89,6 +89,7 @@
     mysql80
     pgloader
     nodejs_24
+    rustc
   ];
 
   services.hyprpaper = {
@@ -197,6 +198,46 @@
 
       };
     };
+    plugin = {
+      plugins = {
+        nt = {
+          shortCut = "ctrl-t";
+          description = "Pick network test";
+          scopes = [ "ns" ];
+          command = "sh";
+          background = false;
+          args = [
+            "-c"
+            ''
+              kubectl run -it -n $NAMESPACE network-test \
+                --image=registry1.dso.mil/ironbank/opensource/kubernetes-e2e-test/dnsutils:1.3-ubi9 \
+                --overrides='{
+                  "apiVersion": "v1",
+                  "spec": {
+                    "containers": [{
+                      "name": "network-test",
+                      "image": "registry1.dso.mil/ironbank/opensource/kubernetes-e2e-test/dnsutils:1.3-ubi9",
+                      "command": ["/bin/bash"],
+                      "args": ["-c", "sleep 10000"],
+                      "serviceAccount": "karpenter",
+                      "securityContext": {
+                        "capabilities": {
+                          "drop": ["ALL"]
+                        }
+                      }
+                    }],
+                    "imagePullSecrets": [{
+                      "name": "private-registry"
+                    }]
+                  }
+                }' \
+                --command -- bash
+            ''
+          ];
+        };
+      };
+    };
+
     views = {
       views = {
         "ks" = {
