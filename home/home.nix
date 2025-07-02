@@ -192,7 +192,7 @@
   };
 
   programs.k9s = {
-    settings = { config = { k9s = { refreshRate = 3; }; }; };
+    settings = { k9s = { refreshRate = 3; }; };
     plugin = {
       plugins = {
         network-test = {
