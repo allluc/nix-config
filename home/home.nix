@@ -192,18 +192,12 @@
   };
 
   programs.k9s = {
-    settings = {
-      xdg = {
-        enable = true;
-
-      };
-    };
     plugin = {
       plugins = {
-        nt = {
-          shortCut = "ctrl-t";
+        network-test = {
+          shortCut = "Ctrl-T";
           description = "Pick network test";
-          scopes = [ "ns" ];
+          scopes = [ "pods" ];
           command = "sh";
           background = false;
           args = [
