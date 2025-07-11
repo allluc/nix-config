@@ -252,7 +252,6 @@
       exec-once = [
         "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
         "swaync"
-        "pypr"
       ];
 
       general = lib.mkForce { };
@@ -281,7 +280,6 @@
         "float, title:^(MainPicker)$"
         "float, title:^(Sign in to Security Device)$"
         "workspace 10,title:^(app.gather.town is sharing)(.*)$"
-        "float,title:^()$,class:^(dev.zed.Zed)$"
       ];
 
       bind = [
@@ -293,7 +291,6 @@
         "$mainMod, Q, killactive,"
         "$mainMod, D, exec, pypr expose"
         "$mainMod, E, exec, thunar"
-        "$mainMod, M, exec, pypr toggle term"
         "$mainMod, F, togglefloating,"
         "$mainMod, SPACE, exec, fuzzel"
         "$mainMod, P, pseudo, # dwindle"
