@@ -90,6 +90,12 @@
     pgloader
     nodejs_24
     rustc
+    wine
+    winetricks
+    lutris
+    vulkan-tools
+    dxvk
+    cdrtools
   ];
 
   services.hyprpaper = {
