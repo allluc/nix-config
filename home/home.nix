@@ -90,12 +90,6 @@
     pgloader
     nodejs_24
     rustc
-    wine
-    winetricks
-    lutris
-    vulkan-tools
-    dxvk
-    cdrtools
   ];
 
   services.hyprpaper = {
@@ -139,7 +133,6 @@
           (extension "ublock-origin" "uBlock0@raymondhill.net")
           (extension "bitwarden-password-manager"
             "{446900e4-71c2-419f-a6a7-df9c091e268b}")
-          (extension "vimium-ff" "{d7742d87-e61d-4b78-b8a1-b469842139fa}")
         ];
     };
     profiles.aleclucas = {
