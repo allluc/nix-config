@@ -90,6 +90,7 @@
     pgloader
     nodejs_24
     rustc
+    mplayer
   ];
 
   services.hyprpaper = {
