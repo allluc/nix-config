@@ -79,6 +79,7 @@
     go-mockery
     pre-commit
     bash
+    discord
     inputs.pyprland.packages.${pkgs.system}.default
     networkmanager
     xarchiver
@@ -102,7 +103,6 @@
     rustc
     mplayer
     obs-studio-plugins.obs-backgroundremoval
-    zoom-us
   ];
 
   services.hyprpaper = {
