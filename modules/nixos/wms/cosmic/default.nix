@@ -22,8 +22,8 @@ in
     # portal config).
     services.desktopManager.cosmic.enable = true;
     # COSMIC enables power-profiles-daemon for its power settings panel, but
-    # ppd refuses to coexist with TLP (which nixos-hardware enables on
-    # tiberius). Where TLP is in charge, keep it in charge; COSMIC just loses
+    # ppd refuses to coexist with TLP (which some nixos-hardware profiles
+    # enable). Where TLP is in charge, keep it in charge; COSMIC just loses
     # the profile switcher there.
     services.power-profiles-daemon.enable = mkIf config.services.tlp.enable (lib.mkForce false);
     # Deliberately NOT services.displayManager.cosmic-greeter: it drives

@@ -9,7 +9,7 @@ hyprland_bin=${HYPRLAND_BIN:-Hyprland}
 
 profiles=("$@")
 if ((${#profiles[@]} == 0)); then
-  profiles=(alucas@alucas alucas@tiberius)
+  profiles=(alucas@alucas)
 fi
 
 for profile in "${profiles[@]}"; do

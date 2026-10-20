@@ -84,7 +84,6 @@ see them:
 ```sh
 git add modules/hm/wms/hypr/lua
 nh home switch . -c alucas@alucas
-# Use alucas@tiberius on the Dell.
 ```
 
 ### Where the compositor comes from

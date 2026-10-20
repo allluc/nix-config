@@ -13,7 +13,7 @@ for file locations, validation, activation, and optional improvements.
 nh os switch . -H <hostname>
 ```
 
-Hostnames: `tiberius`, `atlas`, `lapnix`, `mantra`
+Hostnames: `framework`
 
 ### Rebuild Home
 
@@ -98,9 +98,8 @@ nixosConfigurations = {
             inherit user inputs hyprland;
           };
           modules = [
-            nixos-hardware.nixosModules.dell-precision-3490-intel
-            nixos-hardware.nixosModules.common-gpu-intel
-            ./hosts/tiberius/configuration.nix
+            nixos-hardware.nixosModules.framework-amd-ai-300-series
+            ./hosts/framework/configuration.nix
             stylix.nixosModules.stylix
             disko.nixosModules.disko
           ];

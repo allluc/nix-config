@@ -117,12 +117,6 @@
       nixosConfigurations =
         let
           hosts = {
-            tiberius = {
-              hardwareModules = [
-                nixos-hardware.nixosModules.dell-precision-3490-intel
-                nixos-hardware.nixosModules.common-gpu-intel
-              ];
-            };
             framework = {
               hardwareModules = [
                 nixos-hardware.nixosModules.framework-amd-ai-300-series
@@ -178,7 +172,6 @@
             };
         in
         {
-          "${user.username}@tiberius" = mkHome "tiberius" [ ];
           # The Framework laptop runs it-ops' NixOS config, whose hostname
           # is "alucas"; nh picks <user>@<hostname> by default. That system
           # has no Hyprland, so Home Manager installs it.
