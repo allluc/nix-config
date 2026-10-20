@@ -28,7 +28,8 @@
   modules = {
     ai.gitnexus.enable = true;
     ai.mattpocock-skills.enable = true;
-    ai.team-skills.enable = true;
+    # TODO(reinstall): needs the team-claude-skills input.
+    # ai.team-skills.enable = true;
     editors.vscode.enable = true;
     editors.neovim.enable = true;
     editors.zed.enable = true;

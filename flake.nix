@@ -41,18 +41,19 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    team-claude-skills = {
-      url = "git+ssh://git@github.com/tiberius-grail/team-claude-skills";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # TODO(reinstall): private inputs, need SSH access; re-enable after install.
+    # team-claude-skills = {
+    #   url = "git+ssh://git@github.com/tiberius-grail/team-claude-skills";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     mattpocock-skills = {
       url = "github:mattpocock/skills";
       flake = false;
     };
-    tiberius-nix = {
-      url = "git+ssh://git@code.grail.tiberius.com/grail/TiberiusNix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # tiberius-nix = {
+    #   url = "git+ssh://git@code.grail.tiberius.com/grail/TiberiusNix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
   outputs =
     {
@@ -74,7 +75,7 @@
         config.allowUnfree = true;
         overlays = [
           claude-code.overlays.default
-          inputs.tiberius-nix.overlays.default
+          # inputs.tiberius-nix.overlays.default
         ];
       };
       user = {

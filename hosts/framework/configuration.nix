@@ -9,7 +9,8 @@
     ./hardware-configuration.nix
     ./disks.nix
     ../../modules/nixos
-    inputs.tiberius-nix.nixosModules.default
+    # TODO(reinstall): needs the tiberius-nix input.
+    # inputs.tiberius-nix.nixosModules.default
   ];
   modules = {
     hostName = "alucas";
@@ -19,10 +20,11 @@
       scarlettRite.enable = true;
     };
   };
-  boot.resumeDevice = "/dev/mapper/crypted";
+  # TODO(reinstall): set the real offset for the new swapfile, then re-enable.
+  # boot.resumeDevice = "/dev/mapper/crypted";
   # Get offset with: sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
   boot.kernelParams = [
-    "resume_offset=533760"
+    # "resume_offset=533760"
     "amdgpu.dcdebugmask=0x410"
     "amdgpu.sg_display=0"
     "amdgpu.abmlevel=0"
@@ -62,12 +64,13 @@
     "d /run/media 0755 root root -"
     "d /media 0755 root root -"
   ];
-  tiberius = {
-    hostName = "alucas";
-    tailscale.operatorUser = "alucas";
-    endpointVerification.browsers = [ "chrome" ];
-    cmmc.autoUpgrade.flake = "git+ssh://git@github.com/allluc/nix-config#framework";
-  };
+  # TODO(reinstall): needs the tiberius-nix input.
+  # tiberius = {
+  #   hostName = "alucas";
+  #   tailscale.operatorUser = "alucas";
+  #   endpointVerification.browsers = [ "chrome" ];
+  #   cmmc.autoUpgrade.flake = "git+ssh://git@github.com/allluc/nix-config#framework";
+  # };
 
   system.stateVersion = "26.05";
 }
