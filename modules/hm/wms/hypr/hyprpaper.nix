@@ -1,0 +1,33 @@
+{ config, lib, ... }:
+with lib;
+let
+  cfg = config.modules.hyprpaper;
+in
+{
+  options.modules.hyprpaper = {
+    enable = mkEnableOption "Enable hyprpaper" // {
+      default = true;
+    };
+    wallpaper = mkOption {
+      type = types.str;
+      default = "~/Wallpapers/Igris.png";
+      description = "Path to wallpaper image";
+    };
+  };
+
+  config = mkIf cfg.enable {
+    services.hyprpaper = {
+      enable = true;
+      # Only under Hyprland: COSMIC manages its own wallpaper.
+      systemdTarget = "hyprland-session.target";
+      settings = {
+        splash = false;
+        wallpaper = {
+          monitor = "";
+          path = cfg.wallpaper;
+          fit_mode = "cover";
+        };
+      };
+    };
+  };
+}

@@ -1,0 +1,39 @@
+sounds_dir="$HOME/Documents/sounds"
+pid_file="${XDG_RUNTIME_DIR:-/tmp}/soundboard.pid"
+
+playing_pid() {
+  local pid
+  pid=$(cat "$pid_file" 2>/dev/null) || return 1
+  kill -0 "$pid" 2>/dev/null && echo "$pid"
+}
+
+mkdir -p "$sounds_dir"
+mapfile -t clips < <(find "$sounds_dir" -maxdepth 1 -type f -printf '%f\n' | sort -f)
+
+if [ "${#clips[@]}" -eq 0 ]; then
+  notify-send "Soundboard" "No sounds in $sounds_dir"
+  xdg-open "$sounds_dir"
+  exit 0
+fi
+
+menu=()
+if playing_pid > /dev/null; then
+  menu+=("󰓛  Stop")
+fi
+menu+=("${clips[@]}" "󰉋  Open sounds folder")
+
+choice=$(printf '%s\n' "${menu[@]}" | fuzzel --dmenu -p "Soundboard: ") || exit 0
+
+if pid=$(playing_pid); then
+  kill "$pid"
+fi
+
+case "$choice" in
+  "󰓛  Stop") ;;
+  "󰉋  Open sounds folder") xdg-open "$sounds_dir" ;;
+  *)
+    setsid mpv --no-video --no-terminal --audio-device=pipewire/soundboard \
+      "$sounds_dir/$choice" &
+    echo $! > "$pid_file"
+    ;;
+esac

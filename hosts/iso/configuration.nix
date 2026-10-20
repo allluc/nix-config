@@ -2,14 +2,16 @@
   pkgs,
   modulesPath,
   system,
-  lib,
   user,
   ...
 }:
 let
-  drivePassword = builtins.getEnv "DRIVE_PASSWORD";
   hostname = builtins.getEnv "HOSTNAME";
-  token = builtins.getEnv "GITLAB_TOKEN";
+  drive =
+    let
+      d = builtins.getEnv "DRIVE";
+    in
+    if d == "" then "/dev/nvme0n1" else d;
   run-install = pkgs.writeShellApplication {
     name = "run-install";
     runtimeInputs = with pkgs; [
@@ -18,14 +20,9 @@ let
       nh
     ];
     text = (
-      builtins.replaceStrings
-        [
-          "__USER__"
-          "__HOSTNAME__"
-          "__DRIVE_PASSWORD__"
-        ]
-        [ user.name hostname drivePassword ]
-        (builtins.readFile ./install.sh)
+      builtins.replaceStrings [ "__USER__" "__HOSTNAME__" "__DRIVE__" ] [ user.username hostname drive ] (
+        builtins.readFile ./install.sh
+      )
     );
   };
 in
@@ -38,15 +35,14 @@ in
   nix = {
     channel.enable = false;
     settings = {
-      access-tokens = "code.il2.gamewarden.io=PAT:${token}";
       substituters = [ "https://hyprland.cachix.org" ];
-      trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
   };
+  image = {
+    fileName = "nixinstaller.iso";
+  };
   isoImage = {
-    isoName = lib.mkForce "nixinstaller.iso";
     contents = [
       {
         source = ../../.;
@@ -61,10 +57,12 @@ in
   ];
 
   nixpkgs.hostPlatform = system;
+  networking.wireless.enable = true;
   environment.systemPackages = with pkgs; [
     run-install
     disko
     vim
     git
+    toybox
   ];
 }

@@ -1,0 +1,78 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+let
+  cfg = config.modules.hypridle;
+in
+{
+  options.modules.hypridle = {
+    enable = mkEnableOption "Enable hypridle" // {
+      default = true;
+    };
+    dimTimeout = mkOption {
+      type = types.int;
+      default = 150;
+      description = "Seconds before dimming screen";
+    };
+    lockTimeout = mkOption {
+      type = types.int;
+      default = 300;
+      description = "Seconds before locking screen";
+    };
+    screenOffTimeout = mkOption {
+      type = types.int;
+      default = 600;
+      description = "Seconds before turning off screen";
+    };
+    suspendTimeout = mkOption {
+      type = types.int;
+      default = 1200;
+      description = "Seconds before suspending system";
+    };
+  };
+
+  config = mkIf cfg.enable {
+    services.hypridle = {
+      enable = true;
+      # Only under Hyprland: the lock/dpms commands are hyprctl/hyprlock, and
+      # COSMIC runs its own cosmic-idle daemon.
+      systemdTarget = "hyprland-session.target";
+      settings = {
+        general = {
+          lock_cmd = "pidof hyprlock || hyprlock";
+          before_sleep_cmd = "loginctl lock-session";
+          after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"on\" })'";
+        };
+
+        listener = [
+          # Dim screen
+          {
+            timeout = cfg.dimTimeout;
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10%";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
+          }
+          # Lock screen
+          {
+            timeout = cfg.lockTimeout;
+            on-timeout = "loginctl lock-session";
+          }
+          # Screen off
+          {
+            timeout = cfg.screenOffTimeout;
+            on-timeout = "hyprctl dispatch 'hl.dsp.dpms({ action = \"off\" })'";
+            on-resume = "hyprctl dispatch 'hl.dsp.dpms({ action = \"on\" })' && ${pkgs.brightnessctl}/bin/brightnessctl -r";
+          }
+          # Suspend
+          {
+            timeout = cfg.suspendTimeout;
+            on-timeout = "systemctl suspend-then-hibernate";
+          }
+        ];
+      };
+    };
+  };
+}
